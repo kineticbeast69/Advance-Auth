@@ -1,0 +1,29 @@
+import Joi from "joi";
+
+const updatePasswordOtp = Joi.object({
+  email: Joi.string().required().email().messages({
+    "any.required": "Email is required.",
+    "string.email": "Enter the valid email address.",
+  }),
+  otp: Joi.string().required().max(6).messages({
+    "any.required": "OTP is required.",
+    "string.max": "OTP must have 6 characters only.",
+  }),
+  password: Joi.string()
+    .required()
+    .min(5)
+    .max(15)
+    .pattern(
+      new RegExp(
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?#&])[A-Za-z\\d@$!%*?#&]{8,}$"
+      )
+    )
+    .messages({
+      "any.required": "Password is required.",
+      "string.min": "Password must have 5 characters.",
+      "string.max": "Password can't be longer 15 characters.",
+      "string.pattern.base":
+        "Password must include uppercase, lowercase, number, and special character.",
+    }),
+});
+export default updatePasswordOtp;
