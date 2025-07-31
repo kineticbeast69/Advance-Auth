@@ -2,7 +2,9 @@ import AuthModel from "../models/auth.model.js";
 import bcrypt from "bcryptjs";
 import { transporter } from "../config/mailer.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+dotenv.config();
 // register function for adding new user
 const register = async (req, res) => {
   const { email, password, name } = req.body;
@@ -18,7 +20,7 @@ const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt); //hashed password
 
     // otp generation and saving otp
-    const registerOtp = String(Math.floor(100000 + Math.random() * 900000));
+    const Otp = String(Math.floor(100000 + Math.random() * 900000));
     const otpExpiry = Date.now() + 5 * 60 * 1000;
 
     // email template
@@ -38,7 +40,7 @@ const register = async (req, res) => {
                 <p class="text-gray-700 mb-6">Hello,${name}</p>
                 <p class="text-gray-700 mb-6">Your One-Time Password (OTP) for  verification is:</p>
                 <div class="bg-gray-100 rounded-lg p-4 mb-6">
-                    <p class="text-4xl font-bold text-center text-indigo-600">${otp}</p>
+                    <p class="text-4xl font-bold text-center text-indigo-600">${Otp}</p>
                 </div>
                 <p class="text-gray-700 mb-6">This OTP is valid for <span class="font-semibold">2 minutes</span>. Please do not share this code with anyone.</p>
                 <p class="text-gray-700 mb-2">If you didn't request this code, please ignore this email.</p>
@@ -51,19 +53,25 @@ const register = async (req, res) => {
     </body>
     </html>`;
     // // mailing the otp
-    await transporter.sendMail({
-      from: process.env.SMTP_SENDER_EMAIL,
-      to: email,
-      subject: "OTP verification",
-      html: emailTemplate,
-    });
+    await transporter.sendMail(
+      {
+        from: process.env.SMTP_SENDER_EMAIL,
+        to: email,
+        subject: "OTP verification",
+        html: emailTemplate,
+      },
+      (error, info) => {
+        if (error) return console.log(error);
+        console.log(info.response);
+      }
+    );
 
     // saving the user info
     const user = new AuthModel({
       name: name,
       email: email,
       password: hashedPassword,
-      twoFactorOTP: registerOtp,
+      twoFactorOTP: Otp,
       isExpiredTwoFactorOTP: otpExpiry,
     });
     await user.save();
