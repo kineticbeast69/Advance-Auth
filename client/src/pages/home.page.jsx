@@ -1,11 +1,11 @@
 import Navbar from "../components/navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { Context } from "../context/contextProvider";
 function HomePage() {
   const Navigate = useNavigate();
-
+  const { setEmail } = useContext(Context);
   const [user, setUser] = useState({});
   useEffect(() => {
     const authUser = async () => {
@@ -15,6 +15,7 @@ function HomePage() {
         });
         console.log(response);
         setUser(response.data.userInfo);
+        setEmail(response.data.userInfo.email);
       } catch (error) {
         if (error.response) {
           console.log(error.response);

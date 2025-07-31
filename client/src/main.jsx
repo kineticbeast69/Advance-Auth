@@ -28,7 +28,7 @@ const route = createBrowserRouter([
     element: <ResetPasswordPage />,
   },
   {
-    path: "/email-verification",
+    path: "/verification",
     element: <EmailVerificationPage />,
   },
 ]);

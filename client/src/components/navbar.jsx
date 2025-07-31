@@ -38,7 +38,7 @@ function Navbar({ user }) {
         autoClose: 5000,
         closeOnClick: true,
       });
-      navigate("/email-verification");
+      navigate("/verification");
     } catch (error) {
       if (error.response) {
         // console.log(error.response);
