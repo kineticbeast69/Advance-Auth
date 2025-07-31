@@ -1,12 +1,25 @@
-# React + Vite
+# 🧑‍💻 Advanced Auth System - Frontend (React.js)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the **client-side frontend** of an advanced authentication system built using **React.js**. It provides a modern UI/UX for features such as:
 
-Currently, two official plugins are available:
+- ✅ User registration and login
+- 📧 Email verification
+- 🔐 Two-Factor Authentication (2FA) via OTP (email)
+- 🔄 Password reset/recovery
+- 🛡️ Role-based interface rendering (Admin/User)
+- 🍪 Secure login using cookies and JWT
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📦 Dependencies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Package               | Description |
+|-----------------------|-------------|
+| **axios**             | For making HTTP requests to the backend |
+| **react**             | Core React library |
+| **react-dom**         | DOM rendering for React |
+| **react-hook-form**   | Simplified and performant form handling |
+| **react-icons**       | Icon library used for UI enhancements |
+| **react-router-dom**  | Client-side routing for navigation |
+| **react-toastify**    | Beautiful toast notifications for success/error messages |
+

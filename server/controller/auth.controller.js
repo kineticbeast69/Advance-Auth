@@ -104,11 +104,11 @@ const login = async (req, res) => {
         .json({ status: false, message: "Invalid Password! try again" });
 
     // otp generation
-    const loginOtp = String(Math.floor(100000 + Math.random() * 900000));
+    const otp = String(Math.floor(100000 + Math.random() * 900000));
     const otpExpiry = Date.now() + 5 * 60 * 1000;
 
     // saving the otp
-    user.twoFactorOTP = loginOtp;
+    user.twoFactorOTP = otp;
     user.isExpiredTwoFactorOTP = otpExpiry;
     await user.save();
 
@@ -311,7 +311,7 @@ const resetPasswordOtp = async (req, res) => {
 
     // saving the otp
     user.resetPasswordOTP = otp;
-    user.isExpiredResetPasswordOTP = otpExpire;
+    isExpiredResetPasswordOTP = otpExpire;
     await user.save();
 
     // email tempalte
