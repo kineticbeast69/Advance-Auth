@@ -22,42 +22,41 @@ const register = async (req, res) => {
     const otpExpiry = Date.now() + 5 * 60 * 1000;
 
     // email template
-    // const emailTemplate = `
-    //   <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
-    //     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-    //       <tr>
-    //         <td align="center">
-    //           <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    //             <tr>
-    //               <td align="center" style="padding-bottom: 20px;">
-    //                 <h2 style="color: #333;">Thank You for Registering!</h2>
-    //               </td>
-    //             </tr>
-    //             <tr>
-    //               <td style="font-size: 16px; color: #555;">
-    //                 <p>Hello ${name.replace(/</g, "&lt;")},</p>
-    //                 <p>Thanks for signing up. Please use the following One-Time Password (OTP) to verify your account:</p>
-    //                 <p style="font-size: 24px; font-weight: bold; color: #222; background-color: #f2f2f2; padding: 10px 20px; display: inline-block; border-radius: 4px;">
-    //                   ${otp}
-    //                 </p>
-    //                 <p>This OTP is valid for the next 2 minutes.</p>
-    //                 <p>If you did not request this, you can safely ignore this email.</p>
-    //                 <p>Regards,<br>Advance Auth</p>
-    //               </td>
-    //             </tr>
-    //           </table>
-    //         </td>
-    //       </tr>
-    //     </table>
-    //   </body>
-    // `;
+    const emailTemplate = `<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your OTP Code</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-indigo-600 py-6 px-8">
+                <h1 class="text-3xl font-bold text-white text-center">Two Factor OTP</h1>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-700 mb-6">Hello,${name}</p>
+                <p class="text-gray-700 mb-6">Your One-Time Password (OTP) for  verification is:</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <p class="text-4xl font-bold text-center text-indigo-600">${otp}</p>
+                </div>
+                <p class="text-gray-700 mb-6">This OTP is valid for <span class="font-semibold">2 minutes</span>. Please do not share this code with anyone.</p>
+                <p class="text-gray-700 mb-2">If you didn't request this code, please ignore this email.</p>
+                <p class="text-gray-700">Thank you for using our service!</p>
+            </div>
+            <div class="bg-gray-100 py-4 px-8">
+                <p class="text-sm text-gray-600 text-center">&copy; 2024 AD-Auth. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>`;
     // // mailing the otp
-    // await transporter.sendMail({
-    //   from: process.env.SMTP_SENDER_EMAIL,
-    //   to: email,
-    //   subject: "OTP verification",
-    //   html: emailTemplate,
-    // });
+    await transporter.sendMail({
+      from: process.env.SMTP_SENDER_EMAIL,
+      to: email,
+      subject: "OTP verification",
+      html: emailTemplate,
+    });
 
     // saving the user info
     const user = new AuthModel({
@@ -106,43 +105,42 @@ const login = async (req, res) => {
     await user.save();
 
     // email template
-    // const emailTemplate = `
-    //   <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
-    //     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-    //       <tr>
-    //         <td align="center">
-    //           <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    //             <tr>
-    //               <td align="center" style="padding-bottom: 20px;">
-    //                 <h2 style="color: #333;">Thank You for Login!</h2>
-    //               </td>
-    //             </tr>
-    //             <tr>
-    //               <td style="font-size: 16px; color: #555;">
-    //                 <p>Hello ${user.name},</p>
-    //                 <p>Thanks for Login. Please use the following One-Time Password (OTP) to verify your account:</p>
-    //                 <p style="font-size: 24px; font-weight: bold; color: #222; background-color: #f2f2f2; padding: 10px 20px; display: inline-block; border-radius: 4px;">
-    //                   ${otp}
-    //                 </p>
-    //                 <p>This OTP is valid for the next 2 minutes.</p>
-    //                 <p>If you did not request this, you can safely ignore this email.</p>
-    //                 <p>Regards,<br>Advance Auth</p>
-    //               </td>
-    //             </tr>
-    //           </table>
-    //         </td>
-    //       </tr>
-    //     </table>
-    //   </body>
-    // `;
+    const emailTemplate = `<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your OTP Code</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-indigo-600 py-6 px-8">
+                <h1 class="text-3xl font-bold text-white text-center">OTP Verification</h1>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-700 mb-6">Hello,${user.name}</p>
+                <p class="text-gray-700 mb-6">Your login One-Time Password (OTP) for  verification is:</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <p class="text-4xl font-bold text-center text-indigo-600">${otp}</p>
+                </div>
+                <p class="text-gray-700 mb-6">This OTP is valid for <span class="font-semibold">2 minutes</span>. Please do not share this code with anyone.</p>
+                <p class="text-gray-700 mb-2">If you didn't request this code, please ignore this email.</p>
+                <p class="text-gray-700">Thank you for using our service!</p>
+            </div>
+            <div class="bg-gray-100 py-4 px-8">
+                <p class="text-sm text-gray-600 text-center">&copy; 2024 AD-Auth. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>`;
 
     // // sending the email
-    // await transporter.sendEmail({
-    //   from: process.env.SMTP_SENDER_EMAIL,
-    //   to: user.email,
-    //   subject: "OTP verification",
-    //   html: emailTemplate,
-    // });
+    await transporter.sendEmail({
+      from: process.env.SMTP_SENDER_EMAIL,
+      to: user.email,
+      subject: "OTP verification",
+      html: emailTemplate,
+    });
 
     return res.status(200).json({
       status: true,
@@ -223,44 +221,43 @@ const resendOtp = async (req, res) => {
     user.isExpiredTwoFactorOTP = otpExpiry;
     await user.save();
 
-    // // email template
-    // const emailTemplate = `
-    //   <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
-    //     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-    //       <tr>
-    //         <td align="center">
-    //           <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    //             <tr>
-    //               <td align="center" style="padding-bottom: 20px;">
-    //                 <h2 style="color: #333;">Thank You for Login!</h2>
-    //               </td>
-    //             </tr>
-    //             <tr>
-    //               <td style="font-size: 16px; color: #555;">
-    //                 <p>Hello ${user.name},</p>
-    //                 <p>Thanks for Login. Please use the following One-Time Password (OTP) to verify your account:</p>
-    //                 <p style="font-size: 24px; font-weight: bold; color: #222; background-color: #f2f2f2; padding: 10px 20px; display: inline-block; border-radius: 4px;">
-    //                   ${otp}
-    //                 </p>
-    //                 <p>This OTP is valid for the next 2 minutes.</p>
-    //                 <p>If you did not request this, you can safely ignore this email.</p>
-    //                 <p>Regards,<br>Advance Auth</p>
-    //               </td>
-    //             </tr>
-    //           </table>
-    //         </td>
-    //       </tr>
-    //     </table>
-    //   </body>
-    // `;
+    // email template
+    const emailTemplate = `<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your OTP Code</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-indigo-600 py-6 px-8">
+                <h1 class="text-3xl font-bold text-white text-center">Two Factor OTP</h1>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-700 mb-6">Hello,${user.name}</p>
+                <p class="text-gray-700 mb-6">Your One-Time Password (OTP) for  verification is:</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <p class="text-4xl font-bold text-center text-indigo-600">${otp}</p>
+                </div>
+                <p class="text-gray-700 mb-6">This OTP is valid for <span class="font-semibold">2 minutes</span>. Please do not share this code with anyone.</p>
+                <p class="text-gray-700 mb-2">If you didn't request this code, please ignore this email.</p>
+                <p class="text-gray-700">Thank you for using our service!</p>
+            </div>
+            <div class="bg-gray-100 py-4 px-8">
+                <p class="text-sm text-gray-600 text-center">&copy; 2024 AD-Auth. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>`;
 
-    // // sending the email
-    // await transporter.sendEmail({
-    //   from: process.env.SMTP_SENDER_EMAIL,
-    //   to: user.email,
-    //   subject: "OTP verification",
-    //   html: emailTemplate,
-    // });
+    // sending the email
+    await transporter.sendEmail({
+      from: process.env.SMTP_SENDER_EMAIL,
+      to: user.email,
+      subject: "OTP verification",
+      html: emailTemplate,
+    });
 
     return res
       .status(200)
@@ -309,44 +306,43 @@ const resetPasswordOtp = async (req, res) => {
     user.isExpiredResetPasswordOTP = otpExpire;
     await user.save();
 
-    // email template
-    // const emailTemplate = `
-    //   <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
-    //     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-    //       <tr>
-    //         <td align="center">
-    //           <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    //             <tr>
-    //               <td align="center" style="padding-bottom: 20px;">
-    //                 <h2 style="color: #333;">Reset Password OTP!</h2>
-    //               </td>
-    //             </tr>
-    //             <tr>
-    //               <td style="font-size: 16px; color: #555;">
-    //                 <p>Hello ${user.name},</p>
-    //                 <p>Please use the following One-Time Password (OTP) to reset your password:</p>
-    //                 <p style="font-size: 24px; font-weight: bold; color: #222; background-color: #f2f2f2; padding: 10px 20px; display: inline-block; border-radius: 4px;">
-    //                   ${otp}
-    //                 </p>
-    //                 <p>This OTP is valid for the next 2 minutes.</p>
-    //                 <p>If you did not request this, you can safely ignore this email.</p>
-    //                 <p>Regards,<br>Advance Auth</p>
-    //               </td>
-    //             </tr>
-    //           </table>
-    //         </td>
-    //       </tr>
-    //     </table>
-    //   </body>
-    // `;
+    // email tempalte
+    const emailTemplate = `<html lang="en">
+    // <head>
+    //     <meta charset="UTF-8">
+    //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    //     <title>Your OTP Code</title>
+    //     <script src="https://cdn.tailwindcss.com"></script>
+    // </head>
+    // <body class="bg-gray-100">
+    //     <div class="max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
+    //         <div class="bg-indigo-600 py-6 px-8">
+    //             <h1 class="text-3xl font-bold text-white text-center">Two Factor OTP</h1>
+    //         </div>
+    //         <div class="p-8">
+    //             <p class="text-gray-700 mb-6">Hello,${user.name}</p>
+    //             <p class="text-gray-700 mb-6">Your Reset Password One-Time Password (OTP) for  verification is:</p>
+    //             <div class="bg-gray-100 rounded-lg p-4 mb-6">
+    //                 <p class="text-4xl font-bold text-center text-indigo-600">${otp}</p>
+    //             </div>
+    //             <p class="text-gray-700 mb-6">This OTP is valid for <span class="font-semibold">2 minutes</span>. Please do not share this code with anyone.</p>
+    //             <p class="text-gray-700 mb-2">If you didn't request this code, please ignore this email.</p>
+    //             <p class="text-gray-700">Thank you for using our service!</p>
+    //         </div>
+    //         <div class="bg-gray-100 py-4 px-8">
+    //             <p class="text-sm text-gray-600 text-center">&copy; 2024 AD-Auth. All rights reserved.</p>
+    //         </div>
+    //     </div>
+    // </body>
+    // </html>`;
 
     // sending the email
-    // await transporter.sendEmail({
-    //   from: process.env.SMTP_SENDER_EMAIL,
-    //   to: user.email,
-    //   subject: "Reset Password OTP",
-    //   html: emailTemplate,
-    // });
+    await transporter.sendEmail({
+      from: process.env.SMTP_SENDER_EMAIL,
+      to: user.email,
+      subject: "Reset Password OTP",
+      html: emailTemplate,
+    });
 
     return res
       .status(200)
@@ -447,13 +443,40 @@ const emailVerificationOtp = async (req, res) => {
     await user.save();
 
     // sending the email
-    // const emailTemplate = ``;
-    // await transporter.sendMail({
-    //   from: process.env.SMTP_SENDER_EMAIL,
-    //   to: user.email,
-    //   subject: "Reset Password OTP",
-    //   html: emailTemplate,
-    // });
+    const emailTemplate = `<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your OTP Code</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-indigo-600 py-6 px-8">
+                <h1 class="text-3xl font-bold text-white text-center">Two Factor OTP</h1>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-700 mb-6">Hello,${user.name}</p>
+                <p class="text-gray-700 mb-6">Your One-Time Password (OTP) for email verification is:</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <p class="text-4xl font-bold text-center text-indigo-600">${otp}</p>
+                </div>
+                <p class="text-gray-700 mb-6">This OTP is valid for <span class="font-semibold">2 minutes</span>. Please do not share this code with anyone.</p>
+                <p class="text-gray-700 mb-2">If you didn't request this code, please ignore this email.</p>
+                <p class="text-gray-700">Thank you for using our service!</p>
+            </div>
+            <div class="bg-gray-100 py-4 px-8">
+                <p class="text-sm text-gray-600 text-center">&copy; 2024 AD-Auth. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>`;
+    await transporter.sendMail({
+      from: process.env.SMTP_SENDER_EMAIL,
+      to: user.email,
+      subject: "Reset Password OTP",
+      html: emailTemplate,
+    });
 
     return res.status(200).json({
       status: true,
