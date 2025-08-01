@@ -48,3 +48,14 @@ Two factor Authenication
 
 Email Verification
 ![alt text](<project-images/verifying the email.png>)
+
+Role-Based Action
+
+- Admin role UI
+![alt text](<project-images/Admin UI.png>)
+
+- Author role UI
+![alt text](<project-images/Author UI.png>)
+
+- User role UI
+![alt text](<project-images/User UI.png>)

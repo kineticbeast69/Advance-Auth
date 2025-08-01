@@ -1,4 +1,5 @@
 import Navbar from "../components/navbar";
+import Welcome from "../components/welcome";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,6 +31,7 @@ function HomePage() {
   return (
     <>
       <Navbar user={user} />
+      <Welcome username={user.name} role={user.role} />
     </>
   );
 }

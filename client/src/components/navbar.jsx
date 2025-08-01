@@ -62,7 +62,7 @@ function Navbar({ user }) {
 
           {/* Role-based buttons */}
           {user?.role === "admin" && (
-            <button type="button" className="text-gray-700 hover:text-blue-600">
+            <button type="button" className="text-white hover:text-blue-600">
               Admin Panel
             </button>
           )}
